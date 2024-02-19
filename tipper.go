@@ -39,6 +39,15 @@ func Dump(v any) Structs {
 	return ss
 }
 
+func DumpT[T any]() Structs {
+	var v T
+	t := reflect.TypeOf(v)
+	t = unwrapPtr(t)
+	ss := Structs{}
+	dump0(t, &ss)
+	return ss
+}
+
 func dump0(t reflect.Type, acc *Structs) {
 	if t == nil {
 		return

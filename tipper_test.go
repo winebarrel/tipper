@@ -348,3 +348,112 @@ func TestDump(t *testing.T) {
 ]`, ss.String())
 	}
 }
+
+func TestDumpT(t *testing.T) {
+	assert := assert.New(t)
+
+	expected := tipper.Structs{
+		{
+			Name: "tipper_test.zoo",
+			Fields: []tipper.Field{
+				{
+					Name: "Duration",
+					Type: "time.Duration",
+					Tags: []tipper.Tag{
+						{Key: "env", Name: "DURATION", Options: nil},
+					},
+				},
+				{
+					Name: "Hosts",
+					Type: "[]string",
+					Tags: []tipper.Tag{
+						{Key: "env", Name: "HOSTS", Options: nil},
+						{Key: "envSeparator", Name: ":", Options: nil},
+					},
+				},
+			},
+		},
+		{
+			Name: "tipper_test.baz",
+			Fields: []tipper.Field{
+				{
+					Name: "TempFolder",
+					Type: "string",
+					Tags: []tipper.Tag{
+						{Key: "env", Name: "TEMP_FOLDER", Options: []string{"expand"}},
+						{Key: "envDefault", Name: "${HOME}/tmp", Options: nil},
+					},
+				},
+				{
+					Name: "StringInts",
+					Type: "map[string]int",
+					Tags: []tipper.Tag{
+						{Key: "env", Name: "MAP_STRING_INT", Options: nil},
+					},
+				},
+			},
+		},
+		{
+			Name: "tipper_test.bar",
+			Fields: []tipper.Field{
+				{
+					Name: "Password",
+					Type: "string",
+					Tags: []tipper.Tag{
+						{Key: "env", Name: "PASSWORD", Options: []string{"unset"}},
+					},
+				},
+				{
+					Name: "IsProduction",
+					Type: "bool",
+					Tags: []tipper.Tag{
+						{Key: "env", Name: "PRODUCTION", Options: nil},
+					},
+				},
+				{
+					Name: "Zoo",
+					Type: "tipper_test.zoo",
+					Tags: nil,
+				},
+				{
+					Name: "baz",
+					Type: "*tipper_test.baz",
+					Tags: []tipper.Tag{
+						{Key: "envPrefix", Name: "BAZ_", Options: nil},
+					},
+				},
+			},
+		},
+		{
+			Name: "tipper_test.foo",
+			Fields: []tipper.Field{
+				{
+					Name: "Home",
+					Type: "string",
+					Tags: []tipper.Tag{
+						{Key: "env", Name: "HOME", Options: nil},
+					},
+				},
+				{
+					Name: "Port",
+					Type: "int",
+					Tags: []tipper.Tag{
+						{Key: "env", Name: "PORT", Options: nil},
+						{Key: "envDefault", Name: "3000", Options: nil},
+					},
+				},
+				{
+					Name: "Bar",
+					Type: "*tipper_test.bar",
+					Tags: []tipper.Tag{
+						{Key: "envPrefix", Name: "BAR_", Options: nil},
+					},
+				},
+			},
+		},
+	}
+
+	assert.Equal(expected, tipper.DumpT[foo]())
+	assert.Equal(expected[0], tipper.DumpT[zoo]()[0])
+	assert.Equal(expected[1], tipper.DumpT[baz]()[0])
+}
