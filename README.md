@@ -38,7 +38,8 @@ type subconfig struct {
 func main() {
 	var c config
 	ss := tipper.Dump(c)
-	fmt.Println(ss)
+	j, _ := json.MarshalIndent(ss, "", "  ")
+	fmt.Println(string(j))
 }
 ```
 
