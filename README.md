@@ -1,6 +1,9 @@
 # tipper
 
 [![CI](https://github.com/winebarrel/tipper/actions/workflows/ci.yml/badge.svg)](https://github.com/winebarrel/tipper/actions/workflows/ci.yml)
+[![Go Reference](https://pkg.go.dev/badge/github.com/winebarrel/tipper.svg)](https://pkg.go.dev/github.com/winebarrel/tipper)
+[![GitHub tag (latest by date)](https://img.shields.io/github/v/tag/winebarrel/tipper)](https://github.com/winebarrel/tipper/tags)
+[![Go Report Card](https://goreportcard.com/badge/github.com/winebarrel/tipper)](https://goreportcard.com/report/github.com/winebarrel/tipper)
 
 A library that recursively dumps structure information.
 
