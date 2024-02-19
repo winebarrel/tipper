@@ -40,6 +40,9 @@ func main() {
 	ss := tipper.Dump(c)
 	fmt.Println(ss[0].Fields[0]) //=> "{Password string [{env PASSWORD [unset required]}]}"
 	fmt.Println(ss)
+
+	fromT := tipper.DumpT[config]()
+	fmt.Println(fromT) // Same output as "fmt.Println(ss)"
 }
 ```
 
