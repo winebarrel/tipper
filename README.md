@@ -38,7 +38,7 @@ type subconfig struct {
 func main() {
 	var c config
 	ss := tipper.Dump(c)
-	fmt.Println(ss[0].Fields[0]) //=> "{Password string [{env PASSWORD [unset required]}]}"
+	fmt.Println(ss[0].Fields[0]) //=> "{Password string [{env PASSWORD [unset]}]}"
 	fmt.Println(ss)
 }
 ```
