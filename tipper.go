@@ -1,6 +1,7 @@
 package tipper
 
 import (
+	"encoding/json"
 	"reflect"
 
 	"github.com/fatih/structtag"
@@ -23,15 +24,22 @@ type Struct struct {
 	Fields []Field `json:"fields"`
 }
 
-func Dump(v any) []Struct {
+type Structs []Struct
+
+func (ss Structs) String() string {
+	j, _ := json.MarshalIndent(ss, "", "  ")
+	return string(j)
+}
+
+func Dump(v any) Structs {
 	t := reflect.TypeOf(v)
 	t = unwrapPtr(t)
-	ss := []Struct{}
+	ss := Structs{}
 	dump0(t, &ss)
 	return ss
 }
 
-func dump0(t reflect.Type, acc *[]Struct) {
+func dump0(t reflect.Type, acc *Structs) {
 	if t == nil {
 		return
 	}
