@@ -38,8 +38,8 @@ type subconfig struct {
 func main() {
 	var c config
 	ss := tipper.Dump(c)
-	j, _ := json.MarshalIndent(ss, "", "  ")
-	fmt.Println(string(j))
+	fmt.Println(ss[0].Fields[0]) //=> "{Password string [{env PASSWORD [unset required]}]}"
+	fmt.Println(ss)
 }
 ```
 

@@ -1,7 +1,6 @@
 package tipper_test
 
 import (
-	"encoding/json"
 	"reflect"
 	"testing"
 	"time"
@@ -70,10 +69,10 @@ func TestDump0(t *testing.T) {
 	}
 
 	for _, v := range tt {
-		ss := []tipper.Struct{}
+		ss := tipper.Structs{}
 		typ := reflect.TypeOf(v)
 		tipper.Dump0(tipper.UnwrapPtr(typ), &ss)
-		assert.Equal([]tipper.Struct{
+		assert.Equal(tipper.Structs{
 			{
 				Name: "tipper_test.zoo",
 				Fields: []tipper.Field{
@@ -191,7 +190,6 @@ func TestDump(t *testing.T) {
 
 	for _, v := range tt {
 		ss := tipper.Dump(v)
-		j, _ := json.MarshalIndent(ss, "", "  ")
 		assert.Equal(`[
   {
     "name": "tipper_test.zoo",
@@ -347,6 +345,6 @@ func TestDump(t *testing.T) {
       }
     ]
   }
-]`, string(j))
+]`, ss.String())
 	}
 }
